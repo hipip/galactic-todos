@@ -1,0 +1,365 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), linear-gradient(rgba(0, 17, 43, 0.514), rgba(89, 3, 97, 0.4)),
+        url("./assets/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+img {
+    width: 100%;
+    height: auto;
+}
+
+/* Header Styling */
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 95px;
+    padding: 30px 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgb(132, 0, 255);
+    backdrop-filter: blur(5px);
+}
+
+.logo-cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 0 auto;
+}
+
+.sidebar-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 4px;
+    height: 35px;
+    position: relative;
+    background: none;
+}
+
+.sidebar-btn > div {
+    width: 30px;
+    height: 1px;
+    background-color: white;
+}
+
+.logo-text {
+    color: rgb(254, 253, 255);
+    font-size: 30px;
+    font-weight: bolder;
+    font-family: "Open Sans", sans-serif;
+}
+
+#logo {
+    width: 40px;
+}
+
+/* Sidebar Styling */
+
+.sidebar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    height: calc(100vh - 95px);
+    transition: 0.5s ease-in-out;
+    color: white;
+    margin: 0;
+}
+
+.sidebar-r1,
+.sidebar-r2 {
+    margin-bottom: 80px;
+}
+.sidebar.closed {
+    margin-left: -300px;
+}
+
+.title {
+    font-size: 1.7rem;
+    padding: 10px 30px;
+    font-weight: 900;
+}
+
+#add-project-btn {
+    padding: 10px 20px;
+    margin-left: 20px;
+    border-radius: 25px;
+    color: black;
+    font-size: 1.2rem;
+    background-color: white;
+    transition: 0.4s ease;
+}
+
+#add-project-btn:hover {
+    box-shadow: 0 0 45px -10px rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-link {
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    padding: 10px 30px;
+    margin: 10px 0;
+}
+
+.sidebar-link:not(.project-link).active {
+    background-color: rgba(199, 233, 255, 0.3);
+}
+
+.sidebar-link:not(.active):not(.project-link):hover {
+    background-color: rgba(199, 233, 255, 0.15);
+}
+
+.project-link {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    transition: 0.4s ease;
+}
+
+.project-color {
+    margin-right: 20px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--color);
+}
+
+.project-link:hover {
+    background-color: var(--hover-color);
+}
+
+.project-link.active {
+    background-color: var(--hover-color);
+}
+
+/* Styling the form for adding new Project */
+
+.add-project-form {
+    padding: 5px 8px;
+    border-radius: 30px;
+    background-color: white;
+}
+.add-project-r1,
+.add-project-r2 {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.project-name-inp {
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 140px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.project-color-inp {
+    cursor: pointer;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    outline: none;
+    border: none;
+    background: none;
+    clip-path: circle(35%);
+}
+
+.add-project-submit-btn,
+.add-project-cancel-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+}
+.add-project-submit-btn {
+    background-color: rgb(49, 163, 97);
+}
+.add-project-cancel-btn {
+    background-color: rgb(190, 48, 48);
+}
+
+/* Styling the Home cards */
+
+.home-card {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 35px;
+    border: 1px solid;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    backdrop-filter: blur(5px) brightness(0.5);
+    transition: 0.2s ease;
+    /* width: 250px; */
+    /* height: 250px; */
+    padding: 80px 40px;
+}
+
+.home-card-title {
+    font-family: "Open Sans";
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.home-card-value {
+    font-weight: 900;
+    font-size: 2.5rem;
+}
+.home-card:hover {
+    background-color: var(--color);
+}
+
+/* Todo Card Styling */
+
+.todo-card {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0;
+    width: 650px;
+    height: 105px;
+    border-radius: 45px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: 0.5s ease;
+    backdrop-filter: blur(5px);
+}
+
+.todo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.todo-desc,
+.todo-date {
+    font-size: 0.9rem;
+}
+
+.todo-check-btn {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: 2px solid white;
+    border-radius: 50%;
+    transition: 0.5s ease;
+}
+
+.todo-check-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 5px;
+    border-left: 4px solid rgb(0, 255, 0);
+    border-bottom: 4px solid rgb(0, 255, 0);
+    transform: translate(-50%, -50%) rotate(-90deg) scale(0);
+    transition: 0.5s ease;
+}
+
+.todo-card.done {
+    text-decoration: line-through;
+    text-decoration-color: rgb(0, 255, 0);
+}
+
+.todo-card.done .todo-check-btn {
+    border-color: rgb(0, 255, 0);
+}
+
+.todo-card.done .todo-check-btn::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.todo-card.expanded .todo-expand-btn {
+    rotate: -45deg;
+}
+
+.todo-expand-btn {
+    width: 18px;
+    height: 18px;
+    background: none;
+    border-left: 3px solid white;
+    border-bottom: 3px solid white;
+    rotate: 45deg;
+    transition: 0.4s ease;
+    /* background-color: red; */
+    padding: 5px;
+}
+
+/* Page Template Styling */
+.main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: calc(100vh - 95px);
+}
+
+.content {
+    width: 100%;
+    height: calc(100vh - 95px);
+    overflow-y: auto;
+}
+
+.page-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: white;
+}
+.page-sub-title {
+    font-size: 20px;
+    color: rgb(233, 233, 233);
+    margin-bottom: 30px;
+    font-weight: 200;
+}
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+.dashboard-cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
