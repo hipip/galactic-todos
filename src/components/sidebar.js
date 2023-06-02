@@ -1,6 +1,6 @@
 import { addProject, getProjectByName, getProjects } from "../controllers/todoController.js";
 import Project from "../classes/Project.js";
-import { renderPage } from "../controllers/Ui.js";
+import { dashboard, renderPage } from "../controllers/Ui.js";
 
 function addProjectForm() {
     const cont = document.createElement("form");
@@ -82,6 +82,12 @@ function sidebarLink(txt) {
         document.querySelector(".sidebar-link.active")?.classList.remove("active");
         document.querySelector(".project-link.active")?.classList.remove("active");
         e.currentTarget.classList.add("active");
+        if (txt !== "Dashboard") renderPage(txt);
+        else {
+            const content = document.querySelector(".content");
+            if (content) Array.from(content.children).forEach((child) => child.remove());
+            content.appendChild(dashboard());
+        }
     };
 
     cont.appendChild(linkTxt);
@@ -123,7 +129,7 @@ export default function sidebar() {
     const row1Txt = document.createElement("p");
     const dashboardLink = sidebarLink("Dashboard");
     const todayLink = sidebarLink("Today");
-    const weekLink = sidebarLink("This Week");
+    const weekLink = sidebarLink("Week");
     const row2 = document.createElement("div");
     const row2Txt = document.createElement("p");
     const projectsList = document.createElement("div");
