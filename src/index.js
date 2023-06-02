@@ -1,8 +1,22 @@
 import "./style.css";
-import init from "./controllers/Ui";
-import { addProject } from "./controllers/todoController";
+import init, { renderPage } from "./controllers/Ui";
+import { addProject, getProjects } from "./controllers/todoController";
 import Project from "./classes/Project";
+import Todo from "./classes/Todo";
 
 addProject(new Project("Work", "#FFEEAA"));
 addProject(new Project("Coding", "#00AEEA"));
+addProject(new Project("Gym", "#FFAA00"));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
 init();

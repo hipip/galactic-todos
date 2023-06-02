@@ -1,5 +1,6 @@
-import { addProject, getProjects } from "../controllers/todoController.js";
+import { addProject, getProjectByName, getProjects } from "../controllers/todoController.js";
 import Project from "../classes/Project.js";
+import { renderPage } from "../controllers/Ui.js";
 
 function addProjectForm() {
     const cont = document.createElement("form");
@@ -94,10 +95,18 @@ function projectLink(project) {
     cont.classList.add("project-link");
     projectColorCircle.classList.add("project-color");
 
+    cont.setAttribute("id", project.title);
+
     cont.style.setProperty("--color", project.color);
     cont.style.setProperty("--hover-color", project.color + "5A");
 
     cont.appendChild(projectColorCircle);
+
+    cont.onclick = (e) => {
+        document.querySelector(".active")?.classList.remove("active");
+        e.currentTarget.classList.add("active");
+        renderPage(project);
+    };
     return cont;
 }
 

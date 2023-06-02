@@ -5,7 +5,10 @@ const projects = [];
 var completedTodos = 0;
 var projectsCount = 0;
 
-const addProject = (project) => projects.push(project) && projectsCount++;
+const addProject = (project) => {
+    projects.push(project);
+    projectsCount++;
+};
 
 const getProjects = () => projects;
 
