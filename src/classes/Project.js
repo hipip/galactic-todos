@@ -24,4 +24,8 @@ export default class Project {
     getTodosCount() {
         return this.todos.length;
     }
+
+    deleteTodo(id) {
+        this.todos = this.todos.filter((todo) => todo.id !== id);
+    }
 }

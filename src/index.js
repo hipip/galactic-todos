@@ -1,6 +1,6 @@
 import "./style.css";
 import init, { renderPage } from "./controllers/Ui";
-import { addProject, getProjects } from "./controllers/todoController";
+import { addProject, getProjects, getWeekTodos } from "./controllers/todoController";
 import Project from "./classes/Project";
 import Todo from "./classes/Todo";
 
@@ -12,11 +12,5 @@ getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Da
 getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
 getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
 getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
-getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("5/5/2023")));
+getProjects()[0].addTodo(new Todo("Wake up early", "so wassup lil homie", new Date("06/04/2023")));
 init();

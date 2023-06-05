@@ -1,5 +1,21 @@
 import editIcon from "../assets/edit-icon.png";
 import deleteIcon from "../assets/remove-icon.png";
+import { DecCompletedTodos, IncCompletedTodos, deleteTodo, getTodosByProjectName, markDone } from "../controllers/todoController";
+
+function updateTodos() {
+    const todosContainer = document.querySelector(".todo-cards-container");
+    const projectName = document.querySelector(".page").getAttribute("id");
+
+    [...todosContainer.children].forEach((c) => c.remove());
+
+    const todos = getTodosByProjectName(projectName);
+    for (let i = 0; i < todos.length; i++) {
+        const todo = todos[i];
+        const newTodoCard = todoCard(todo, projectName);
+        newTodoCard.style.animationDelay = `0.${i + 3}s`;
+        todosContainer.appendChild(newTodoCard);
+    }
+}
 
 export default function todoCard(todo, projectTitle) {
     const { title, description, date, isDone } = todo;
@@ -56,9 +72,28 @@ export default function todoCard(todo, projectTitle) {
 
     if (isDone) card.classList.add("done");
 
-    checkboxBtn.onclick = () => card.classList.toggle("done");
+    checkboxBtn.onclick = () => {
+        card.classList.toggle("done");
+        if (card.classList.contains("done")) {
+            markDone(projectTitle, todo.id);
+            IncCompletedTodos();
+        } else {
+            todo.markDone();
+            DecCompletedTodos();
+        }
+    };
     expandBtn.onclick = (e) => {
         card.classList.toggle("expanded");
+    };
+
+    deleteBtn.onclick = (e) => {
+        deleteTodo(projectTitle, todo.id);
+        const card = e.currentTarget.parentElement.parentElement;
+        card.style.animationDelay = "0s";
+        card.classList.add("slide-out");
+        setTimeout(() => {
+            card.remove();
+        }, 500);
     };
 
     Col1.appendChild(checkboxBtn);

@@ -18,7 +18,7 @@ export default function homeCard(title, value, color) {
         if (value > 0) cardValue.textContent = +cardValue.textContent + 1;
         if (parseInt(cardValue.textContent) >= value) clearInterval(valueInterval);
     };
-    let valueInterval = setInterval(incrementValue, 10);
+    let valueInterval = setInterval(incrementValue, 30);
 
     card.appendChild(cardTitle);
     card.appendChild(cardValue);

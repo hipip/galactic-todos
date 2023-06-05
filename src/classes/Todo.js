@@ -21,11 +21,11 @@ export default class Todo {
         this.date = date;
     }
 
-    mark() {
+    markDone() {
         this.isDone = true;
     }
 
-    unmark() {
+    markNotDone() {
         this.isDone = false;
     }
 }

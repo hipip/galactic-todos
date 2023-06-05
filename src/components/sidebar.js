@@ -63,9 +63,8 @@ function addProjectButton() {
 
     btn.type = "button";
 
-    btn.onclick = () => {
-        const projectsList = document.querySelector(".projects-list");
-        projectsList.insertAdjacentElement("afterend", addProjectForm());
+    btn.onclick = (e) => {
+        if (!document.querySelector(".add-project-form")) e.currentTarget.insertAdjacentElement("beforebegin", addProjectForm());
     };
 
     return btn;
@@ -121,6 +120,7 @@ function updateProjectsList() {
     Array.from(projectsList.children).forEach((child) => child.remove());
     const projects = getProjects();
     projects.forEach((project) => projectsList.appendChild(projectLink(project)));
+    projectsList.appendChild(addProjectButton());
 }
 
 export default function sidebar() {
@@ -154,8 +154,8 @@ export default function sidebar() {
     row2.appendChild(row2Txt);
     const projects = getProjects();
     projects.forEach((project) => projectsList.appendChild(projectLink(project)));
+    projectsList.appendChild(addProjectBtn);
     row2.appendChild(projectsList);
-    row2.appendChild(addProjectBtn);
 
     sidebar.appendChild(row1);
     sidebar.appendChild(row2);

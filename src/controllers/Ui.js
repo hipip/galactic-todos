@@ -4,6 +4,7 @@ import homeCard from "../components/homeCard.js";
 import { getTodosCount, getCompletedTodosCount, getProjectsCount, getTodaysTodos, getWeekTodos } from "./todoController.js";
 import todoCard from "../components/todoCard.js";
 import Project from "../classes/Project.js";
+import addTodoButton from "../components/addTodoButton.js";
 
 function dashboard() {
     const cont = document.createElement("div");
@@ -21,6 +22,11 @@ function dashboard() {
 
     pageTitle.textContent = "Dashboard";
     pageSubTitle.textContent = "Welcome Productive Human !";
+
+    todosCreatedCard.style.animationDelay = "0.1s";
+    todosCompletedCard.style.animationDelay = "0.2s";
+    projectsCreatedCard.style.animationDelay = "0.3s";
+    todosDeletedCard.style.animationDelay = "0.4s";
 
     cardsContainer.appendChild(todosCreatedCard);
     cardsContainer.appendChild(todosCompletedCard);
@@ -40,9 +46,7 @@ function renderPage(project) {
     const content = document.querySelector(".content");
     if (content) Array.from(content.children).forEach((child) => child.remove());
 
-    var title = null,
-        color = null,
-        todos = null;
+    var { title, color, todos } = project;
 
     const cont = document.createElement("div");
     const pageTitle = document.createElement("h1");
@@ -58,6 +62,7 @@ function renderPage(project) {
         title = project.title;
         color = project.color;
         todos = project.todos;
+        cont.appendChild(addTodoButton());
     } else if (project === "Today") {
         title = "Today";
         color = "rgba(0,0,0,.7)";
@@ -65,9 +70,9 @@ function renderPage(project) {
     } else if (project === "Week") {
         title = "Week";
         color = "rgba(0,0,0,.7)";
-
         todos = getWeekTodos();
     }
+
     if (todos) {
         for (let i = 0; i < todos.length; i++) {
             const todo = todos[i];
@@ -78,7 +83,7 @@ function renderPage(project) {
     }
 
     pageTitle.textContent = title;
-    pageSubTitle.textContent = `No Todos Found in project ${title}`;
+    pageSubTitle.textContent = "No Todos Found in this project";
 
     cont.setAttribute("id", title);
 
