@@ -84,6 +84,13 @@ export default function todoCard(todo, projectTitle) {
     };
     expandBtn.onclick = (e) => {
         card.classList.toggle("expanded");
+        if (card.classList.contains("expanded")) {
+            todoDesc.style.maxHeight = todoDesc.scrollHeight + "px";
+            todoDesc.style.opacity = 1;
+        } else {
+            todoDesc.style.maxHeight = "0";
+            todoDesc.style.opacity = 0;
+        }
     };
 
     deleteBtn.onclick = (e) => {
@@ -109,6 +116,8 @@ export default function todoCard(todo, projectTitle) {
     card.appendChild(Col2);
     card.appendChild(Col3);
     card.appendChild(Col4);
+
+    console.log(getComputedStyle(todoDesc)["height"]);
 
     return card;
 }
