@@ -28,6 +28,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: "Galactic Todos",
+            favicon: __dirname + "/src/assets/logo.png",
         }),
     ],
 };

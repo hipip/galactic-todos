@@ -1,6 +1,7 @@
 import editIcon from "../assets/edit-icon.png";
 import deleteIcon from "../assets/remove-icon.png";
-import { DecCompletedTodos, IncCompletedTodos, deleteTodo, getTodosByProjectName, markDone } from "../controllers/todoController";
+import { DecCompletedTodos, IncCompletedTodos, addTodo, deleteTodo, getTodosByProjectName, markDone } from "../controllers/todoController";
+import addTodoForm from "./addTodoForm";
 
 function updateTodos() {
     const todosContainer = document.querySelector(".todo-cards-container");
@@ -93,6 +94,13 @@ export default function todoCard(todo, projectTitle) {
         }
     };
 
+    editBtn.onclick = (e) => {
+        const todoCard = e.currentTarget.parentElement.parentElement;
+        todoCard.insertAdjacentElement("afterend", addTodoForm(todo));
+        todoCard.style.display = "none";
+        // todoCard.remove();
+    };
+
     deleteBtn.onclick = (e) => {
         deleteTodo(projectTitle, todo.id);
         const card = e.currentTarget.parentElement.parentElement;
@@ -117,7 +125,7 @@ export default function todoCard(todo, projectTitle) {
     card.appendChild(Col3);
     card.appendChild(Col4);
 
-    console.log(getComputedStyle(todoDesc)["height"]);
-
     return card;
 }
+
+export { updateTodos };

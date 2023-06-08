@@ -1,6 +1,6 @@
 import Todo from "../classes/Todo.js";
-import { addTodo } from "../controllers/todoController.js";
-import todoCard from "./todoCard.js";
+import { addTodo, editTodo } from "../controllers/todoController.js";
+import todoCard, { updateTodos } from "./todoCard.js";
 
 function closeForm(form) {
     form.classList.add("slide-out");
@@ -8,7 +8,7 @@ function closeForm(form) {
         form.remove();
     }, 450);
 }
-export default function addTodoForm() {
+export default function addTodoForm(todo = null) {
     const form = document.createElement("form");
     const formTitle = document.createElement("p");
     const r1 = document.createElement("div");
@@ -27,56 +27,80 @@ export default function addTodoForm() {
     const r5 = document.createElement("div");
     const submitBtn = document.createElement("button");
     const closeBtn = document.createElement("button");
+    var mode = "add";
 
-    form.classList.add("add-todo-form");
-    formTitle.classList.add("add-todo-form-title");
+    if (todo) {
+        mode = "edit";
+        todoTitleInput.value = todo.title;
+        todoDescriptionInput.value = todo.description;
+    } else {
+        todoTitleInput.placeholder = "enter task title";
+        todoDescriptionInput.placeholder = "add a description for you task here!";
+    }
+    form.classList.add(mode + "-todo-form");
+    formTitle.classList.add(mode + "-todo-form-title");
     todoTitleInput.classList.add("inp");
-    todoDescriptionInput.classList.add("inp", "add-todo-desc");
+    todoDescriptionInput.classList.add("inp", mode + "-todo-desc");
     todoDateInput.classList.add("inp");
-    submitBtn.classList.add("add-todo-form-submit-btn");
-    closeBtn.classList.add("add-todo-form-close-btn");
+    submitBtn.classList.add(mode + "-todo-form-submit-btn");
+    closeBtn.classList.add(mode + "-todo-form-close-btn");
     r1.classList.add("inp-cont");
     r2.classList.add("inp-cont");
     r3.classList.add("inp-cont");
     r4.classList.add("inp-cont");
     r5.classList.add("inp-cont");
 
-    todoTitleInput.placeholder = "enter task title";
-    todoDescriptionInput.placeholder = "add a description for you task here!";
-
     todoTitleInput.type = "text";
     todoDateInput.type = "date";
     submitBtn.type = "button";
     closeBtn.type = "button";
 
-    formTitle.innerText = "Add new Task";
+    formTitle.innerText = todo ? "Edit Task" : "Add new Task";
     todoTitleLabel.innerText = "Title";
     todoDescriptionLabel.innerText = "Details";
     projectSelectLabel.innerText = "Project";
     todoDateLabel.innerText = "Date";
     closeBtn.innerText = "x";
-    submitBtn.innerText = "Add";
+    submitBtn.innerText = todo ? "Save" : "Add";
 
-    const today = new Date();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-    if (month < 10) month = "0" + "" + month;
-    if (day < 10) day = "0" + day;
-    todoDateInput.value = `${today.getFullYear()}-${month}-${day}`;
+    if (!todo) {
+        const today = new Date();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+        if (month < 10) month = "0" + "" + month;
+        if (day < 10) day = "0" + day;
+        todoDateInput.value = `${today.getFullYear()}-${month}-${day}`;
+    } else {
+        todoDateInput.value = todo.date.toISOString().split("T")[0];
+    }
 
-    closeBtn.onclick = () => closeForm(form);
-
+    closeBtn.onclick = () => {
+        if (todo) form.previousElementSibling.style.display = "grid";
+        closeForm(form);
+    };
     submitBtn.onclick = () => {
         const title = todoTitleInput.value.trim();
         const desc = todoDescriptionInput.value;
         const date = new Date(todoDateInput.value);
 
-        if (title && date) {
-            const todo = new Todo(title, desc, date);
-            const projectName = document.querySelector(".page").getAttribute("id");
-            addTodo(todo, document.querySelector(".page").getAttribute("id"));
-            document.querySelector(".todo-cards-container").appendChild(todoCard(todo, projectName));
-            closeForm(form);
+        if (todo) {
+            console.log("logic for editing task");
+            if (title && date) {
+                const id = todo.id;
+                const projectName = document.querySelector(".page").getAttribute("id");
+                console.log(projectName);
+                const newTodo = new Todo(title, desc, date);
+                editTodo(newTodo, id, projectName);
+                updateTodos();
+            }
+        } else {
+            if (title && date) {
+                const todo = new Todo(title, desc, date);
+                const projectName = document.querySelector(".page").getAttribute("id");
+                addTodo(todo, document.querySelector(".page").getAttribute("id"));
+                document.querySelector(".todo-cards-container").appendChild(todoCard(todo, projectName));
+                closeForm(form);
+            }
         }
     };
 

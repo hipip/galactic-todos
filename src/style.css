@@ -146,7 +146,7 @@ img {
 }
 
 #add-project-btn:hover {
-    box-shadow: 0 0 25px -5px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.5);
 }
 
 .sidebar-link {
@@ -324,6 +324,7 @@ img {
 }
 
 .todo-card.slide-out,
+.edit-todo-form.slide-out,
 .add-todo-form.slide-out {
     animation-name: slide-out;
     animation-duration: 0.4s;
@@ -582,6 +583,7 @@ img {
     bottom: 70px;
 }
 
+.edit-todo-form,
 .add-todo-form {
     display: flex;
     flex-direction: column;
@@ -595,6 +597,11 @@ img {
     animation: slide-in 0.4s ease forwards;
 }
 
+.edit-todo-form {
+    margin: 0;
+}
+
+.edit-todo-form-title,
 .add-todo-form-title {
     place-self: center;
     font-size: 1.2rem;
@@ -602,6 +609,7 @@ img {
     margin-bottom: 20px;
 }
 
+.edit-todo-form .inp,
 .add-todo-form .inp {
     width: 250px;
     padding: 10px 20px;
@@ -619,6 +627,7 @@ img {
     gap: 20px;
 }
 
+.edit-todo-form-submit-btn,
 .add-todo-form-submit-btn {
     padding: 10px 20px;
     color: white;
@@ -627,7 +636,13 @@ img {
     width: max-content;
     place-self: center;
     background-color: black;
+    transition: 0.4s ease;
 }
+
+.edit-todo-form-submit-btn:hover {
+    background-color: rgb(9, 161, 4);
+}
+.edit-todo-form-close-btn,
 .add-todo-form-close-btn {
     position: absolute;
     z-index: 90;
@@ -643,7 +658,7 @@ img {
     background: red;
     border-radius: 50%;
 }
-
+.edit-todo-desc,
 .add-todo-desc {
     resize: vertical;
 }

@@ -53,6 +53,20 @@ const unMarkDone = (projectName, todoId) => {
     toMarkDone.markNotDone();
 };
 
+const editTodo = (newTodo, id, projectTitle) => {
+    const pr = getProjectByName(projectTitle);
+    console.log(pr);
+    pr.todos = pr.todos.filter((todo) => {
+        if (todo.id === id) {
+            todo.title = newTodo.title;
+            todo.description = newTodo.description;
+            todo.date = newTodo.date;
+        }
+        return todo;
+    });
+    console.log(pr.todos);
+};
+
 export {
     addProject,
     getProjects,
@@ -69,4 +83,5 @@ export {
     markDone,
     getTodosByProjectName,
     addTodo,
+    editTodo,
 };
