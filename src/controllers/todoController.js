@@ -20,8 +20,18 @@ const removeProject = (projectName) => {
 
 const getTodosByProjectName = (projectName) => getProjectByName(projectName).todos;
 
-const getTodaysTodos = () => projects.flatMap((project) => project.todos).filter((todo) => isSameDay(new Date(), todo.date));
-
+const getTodaysTodos = () => {
+    const todaysTodos = [];
+    projects.forEach((project) => {
+        project.todos.forEach((todo) => {
+            if (isSameDay(new Date(), todo.date)) {
+                todo.project = project.title;
+                todaysTodos.push(todo);
+            }
+        });
+    });
+    return todaysTodos;
+};
 const getWeekTodos = () => projects.flatMap((project) => project.todos).filter((todo) => isSameWeek(new Date(), todo.date));
 
 const getProjectsCount = () => projectsCount;
@@ -87,6 +97,7 @@ export {
     DecCompletedTodos,
     deleteTodo,
     markDone,
+    unMarkDone,
     getTodosByProjectName,
     addTodo,
     editTodo,

@@ -1,6 +1,14 @@
 import editIcon from "../assets/edit-icon.png";
 import deleteIcon from "../assets/remove-icon.png";
-import { DecCompletedTodos, IncCompletedTodos, addTodo, deleteTodo, getTodosByProjectName, markDone } from "../controllers/todoController";
+import {
+    DecCompletedTodos,
+    IncCompletedTodos,
+    addTodo,
+    deleteTodo,
+    getTodosByProjectName,
+    markDone,
+    unMarkDone,
+} from "../controllers/todoController";
 import addTodoForm from "./addTodoForm";
 
 function updateTodos() {
@@ -79,7 +87,7 @@ export default function todoCard(todo, projectTitle) {
             markDone(projectTitle, todo.id);
             IncCompletedTodos();
         } else {
-            todo.markDone();
+            unMarkDone(projectTitle, todo.id);
             DecCompletedTodos();
         }
     };

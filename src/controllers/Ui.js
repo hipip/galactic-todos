@@ -76,7 +76,7 @@ function renderPage(project) {
     if (todos) {
         for (let i = 0; i < todos.length; i++) {
             const todo = todos[i];
-            const newTodoCard = todoCard(todo, project.title);
+            const newTodoCard = todoCard(todo, project === "Today" || project === "Week" ? todo.project : project.title);
             newTodoCard.style.animationDelay = `0.${i + 3}s`;
             cardsContainer.appendChild(newTodoCard);
         }
