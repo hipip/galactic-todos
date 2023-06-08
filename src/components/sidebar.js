@@ -1,8 +1,10 @@
-import { addProject, getProjectByName, getProjects } from "../controllers/todoController.js";
+import { addProject, editProject, getProjectByName, getProjects, removeProject } from "../controllers/todoController.js";
 import Project from "../classes/Project.js";
 import { dashboard, renderPage } from "../controllers/Ui.js";
+import deleteBtnImg from "../assets/delete-icon.png";
+import editBtnImg from "../assets/edit-icon.png";
 
-function addProjectForm() {
+function addProjectForm(project = null) {
     const cont = document.createElement("form");
     const rowOne = document.createElement("div");
     const projectNameInput = document.createElement("input");
@@ -11,6 +13,7 @@ function addProjectForm() {
     const submitBtn = document.createElement("button");
     const cancelBtn = document.createElement("button");
     const removeForm = () => document.querySelector(".add-project-form")?.remove();
+    const oldName = project ? project.title : null;
 
     submitBtn.type = "button";
     cancelBtn.type = "button";
@@ -18,8 +21,15 @@ function addProjectForm() {
     projectNameInput.type = "text";
     projectColorInput.type = "color";
 
-    projectNameInput.placeholder = "project name";
-    submitBtn.innerText = "Add";
+    if (project) {
+        projectNameInput.value = project.title;
+        projectColorInput.value = project.color;
+        submitBtn.innerText = "Save";
+    } else {
+        projectNameInput.placeholder = "project name";
+        submitBtn.innerText = "Add";
+    }
+
     cancelBtn.innerText = "Cancel";
 
     cont.classList.add("add-project-form");
@@ -31,17 +41,29 @@ function addProjectForm() {
     cancelBtn.classList.add("add-project-cancel-btn");
 
     submitBtn.onclick = () => {
-        const projects = getProjects().filter((project) => project.title);
         const newProjectName = projectNameInput.value.trim();
         const newProjectColor = projectColorInput.value;
-        if (newProjectName !== "" && !projects.includes(newProjectName)) {
-            addProject(new Project(newProjectName, newProjectColor));
-            removeForm();
-            updateProjectsList();
+        if (project) {
+            if (!getProjects().includes(newProjectName)) {
+                editProject(oldName, newProjectName, newProjectColor);
+                removeForm();
+                updateProjectsList();
+                renderPage(getProjectByName(newProjectName));
+            }
+        } else {
+            const projects = getProjects().filter((project) => project.title);
+            if (newProjectName !== "" && !projects.includes(newProjectName)) {
+                addProject(new Project(newProjectName, newProjectColor));
+                removeForm();
+                updateProjectsList();
+            }
         }
     };
 
-    cancelBtn.onclick = () => removeForm();
+    cancelBtn.onclick = () => {
+        removeForm();
+        updateProjectsList();
+    };
 
     rowOne.appendChild(projectColorInput);
     rowOne.appendChild(projectNameInput);
@@ -96,6 +118,10 @@ function sidebarLink(txt) {
 function projectLink(project) {
     const cont = sidebarLink(project.title);
     const projectColorCircle = document.createElement("div");
+    const editBtn = document.createElement("button");
+    const editBtnIcon = new Image();
+    const deleteBtn = document.createElement("button");
+    const deleteBtnIcon = new Image();
 
     cont.classList.add("project-link");
     projectColorCircle.classList.add("project-color");
@@ -105,13 +131,35 @@ function projectLink(project) {
     cont.style.setProperty("--color", project.color);
     cont.style.setProperty("--hover-color", project.color + "5A");
 
-    cont.appendChild(projectColorCircle);
+    editBtnIcon.classList.add("icon");
+    deleteBtnIcon.classList.add("icon");
+
+    editBtnIcon.src = editBtnImg;
+    deleteBtnIcon.src = deleteBtnImg;
 
     cont.onclick = (e) => {
         document.querySelector(".active")?.classList.remove("active");
         e.currentTarget.classList.add("active");
         renderPage(project);
     };
+
+    editBtn.appendChild(editBtnIcon);
+    deleteBtn.appendChild(deleteBtnIcon);
+
+    editBtn.onclick = () => {
+        cont.insertAdjacentElement("afterend", addProjectForm(project));
+        cont.style.display = "none";
+    };
+
+    deleteBtn.onclick = () => {
+        removeProject(project.title);
+        updateProjectsList();
+    };
+
+    cont.appendChild(projectColorCircle);
+    cont.appendChild(editBtn);
+    cont.appendChild(deleteBtn);
+
     return cont;
 }
 
@@ -162,3 +210,5 @@ export default function sidebar() {
 
     return sidebar;
 }
+
+export { addProjectForm };

@@ -1,7 +1,7 @@
 import Project from "../classes/Project";
 import { isSameWeek, isSameDay } from "date-fns";
 
-const projects = [];
+var projects = [];
 var completedTodos = 0;
 var projectsCount = 0;
 
@@ -55,7 +55,7 @@ const unMarkDone = (projectName, todoId) => {
 
 const editTodo = (newTodo, id, projectTitle) => {
     const pr = getProjectByName(projectTitle);
-    console.log(pr);
+    console.log(pr.todos);
     pr.todos = pr.todos.filter((todo) => {
         if (todo.id === id) {
             todo.title = newTodo.title;
@@ -65,6 +65,12 @@ const editTodo = (newTodo, id, projectTitle) => {
         return todo;
     });
     console.log(pr.todos);
+};
+
+const editProject = (oldProjectName, newProjectName, newProjectColor) => {
+    const projectToEdit = getProjectByName(oldProjectName);
+    projectToEdit.setTitle(newProjectName);
+    projectToEdit.setColor(newProjectColor);
 };
 
 export {
@@ -84,4 +90,5 @@ export {
     getTodosByProjectName,
     addTodo,
     editTodo,
+    editProject,
 };
