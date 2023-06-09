@@ -87,11 +87,12 @@ export default function addTodoForm(todo = null) {
             console.log("logic for editing task");
             if (title && date) {
                 const id = todo.id;
-                const projectName = document.querySelector(".page").getAttribute("id");
-                console.log(projectName);
+                const projectName = todo.project || document.querySelector(".page").getAttribute("id");
                 const newTodo = new Todo(title, desc, date);
                 editTodo(newTodo, id, projectName);
-                updateTodos();
+                form.previousElementSibling.remove();
+                form.insertAdjacentElement("beforebegin", todoCard(newTodo, projectName));
+                closeForm(form);
             }
         } else {
             if (title && date) {

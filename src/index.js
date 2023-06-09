@@ -4,8 +4,16 @@ import { addProject, getProjects, getWeekTodos } from "./controllers/todoControl
 import Project from "./classes/Project";
 import Todo from "./classes/Todo";
 
-addProject(new Project("Work", "#FFEEAA"));
-addProject(new Project("Coding", "#00AEEA"));
-addProject(new Project("Gym", "#FFAA00"));
-getProjects()[0].addTodo(new Todo("Wake up early", "to finish the work", new Date("5/5/2023")));
+const Work = new Project("Work", "#FF0024");
+const Coding = new Project("Coding", "#4AFF24");
+const Business = new Project("Business", "#AA00FF");
+
+addProject(Work);
+addProject(Coding);
+addProject(Business);
+
+Work.addTodo(
+    new Todo("Complete the galactic Todos project", "the last due date is 15 june so hurry up and deploy it to github pages", new Date("06-13-2023"))
+);
+
 init();

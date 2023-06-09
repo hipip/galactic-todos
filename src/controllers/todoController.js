@@ -1,4 +1,3 @@
-import Project from "../classes/Project";
 import { isSameWeek, isSameDay } from "date-fns";
 
 var projects = [];
@@ -32,7 +31,18 @@ const getTodaysTodos = () => {
     });
     return todaysTodos;
 };
-const getWeekTodos = () => projects.flatMap((project) => project.todos).filter((todo) => isSameWeek(new Date(), todo.date));
+const getWeekTodos = () => {
+    const weekTodos = [];
+    projects.forEach((project) => {
+        project.todos.forEach((todo) => {
+            if (isSameWeek(new Date(), todo.date)) {
+                todo.project = project.title;
+                weekTodos.push(todo);
+            }
+        });
+    });
+    return weekTodos;
+};
 
 const getProjectsCount = () => projectsCount;
 

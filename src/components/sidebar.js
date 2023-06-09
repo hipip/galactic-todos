@@ -12,8 +12,8 @@ function addProjectForm(project = null) {
     const rowTwo = document.createElement("div");
     const submitBtn = document.createElement("button");
     const cancelBtn = document.createElement("button");
-    const removeForm = () => document.querySelector(".add-project-form")?.remove();
     const oldName = project ? project.title : null;
+    const removeForm = () => document.querySelector(".add-project-form")?.remove();
 
     submitBtn.type = "button";
     cancelBtn.type = "button";
@@ -46,8 +46,9 @@ function addProjectForm(project = null) {
         if (project) {
             if (!getProjects().includes(newProjectName)) {
                 editProject(oldName, newProjectName, newProjectColor);
+                cont.previousElementSibling.remove();
+                cont.insertAdjacentElement("afterend", projectLink(new Project(newProjectName, newProjectColor)));
                 removeForm();
-                updateProjectsList();
                 renderPage(getProjectByName(newProjectName));
             }
         } else {
@@ -61,8 +62,8 @@ function addProjectForm(project = null) {
     };
 
     cancelBtn.onclick = () => {
+        cont.previousElementSibling.style.display = "flex";
         removeForm();
-        updateProjectsList();
     };
 
     rowOne.appendChild(projectColorInput);
