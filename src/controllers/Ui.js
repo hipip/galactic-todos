@@ -92,8 +92,6 @@ function renderPage(project) {
     cont.appendChild(cardsContainer);
 
     content.appendChild(cont);
-
-    document.body.style.backgroundImage = `linear-gradient(${color},rgba(0,0,0,.5) 70%), url('https://somehowalive.github.io/todo-list/5bc290a3663f721eb0cb.jpg')`;
 }
 
 export default function init() {

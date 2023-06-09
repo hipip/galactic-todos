@@ -41,3 +41,5 @@ export default function header() {
 
     return header;
 }
+
+export { toggleSidebar };

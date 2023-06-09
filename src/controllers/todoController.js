@@ -73,18 +73,17 @@ const unMarkDone = (projectName, todoId) => {
     toMarkDone.markNotDone();
 };
 
-const editTodo = (newTodo, id, projectTitle) => {
-    const pr = getProjectByName(projectTitle);
-    console.log(pr.todos);
-    pr.todos = pr.todos.filter((todo) => {
-        if (todo.id === id) {
-            todo.title = newTodo.title;
-            todo.description = newTodo.description;
-            todo.date = newTodo.date;
-        }
-        return todo;
-    });
-    console.log(pr.todos);
+const getTodo = (id, projectName) => {
+    const p = getProjectByName(projectName);
+    const toFind = p.todos.find((t) => t.id === id);
+    return toFind;
+};
+const editTodo = (title, desc, date, id, projectTitle) => {
+    const toEdit = getTodo(id, projectTitle);
+    toEdit.setTitle(title);
+    toEdit.setDescription(desc);
+    toEdit.setDate(date);
+    return toEdit;
 };
 
 const editProject = (oldProjectName, newProjectName, newProjectColor) => {

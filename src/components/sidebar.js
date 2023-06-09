@@ -3,6 +3,19 @@ import Project from "../classes/Project.js";
 import { dashboard, renderPage } from "../controllers/Ui.js";
 import deleteBtnImg from "../assets/delete-icon.png";
 import editBtnImg from "../assets/edit-icon.png";
+import { toggleSidebar } from "./header.js";
+
+function isMobile() {
+    return (
+        navigator.userAgent.match(/Android/i) ||
+        navigator.userAgent.match(/webOS/i) ||
+        navigator.userAgent.match(/iPhone/i) ||
+        navigator.userAgent.match(/iPad/i) ||
+        navigator.userAgent.match(/iPod/i) ||
+        navigator.userAgent.match(/BlackBerry/i) ||
+        navigator.userAgent.match(/Windows Phone/i)
+    );
+}
 
 function addProjectForm(project = null) {
     const cont = document.createElement("form");
@@ -110,6 +123,7 @@ function sidebarLink(txt) {
             if (content) Array.from(content.children).forEach((child) => child.remove());
             content.appendChild(dashboard());
         }
+        if (isMobile()) toggleSidebar();
     };
 
     cont.appendChild(linkTxt);
@@ -141,7 +155,10 @@ function projectLink(project) {
     cont.onclick = (e) => {
         document.querySelector(".active")?.classList.remove("active");
         e.currentTarget.classList.add("active");
+        document.body.style.setProperty("--project-color", project.color + "50");
+        if (isMobile()) toggleSidebar();
         renderPage(project);
+        document.querySelector(".content").scrollTop = 0;
     };
 
     editBtn.appendChild(editBtnIcon);
@@ -157,9 +174,12 @@ function projectLink(project) {
         updateProjectsList();
     };
 
+    const d = document.createElement("div");
+    d.appendChild(editBtn);
+    d.appendChild(deleteBtn);
+
     cont.appendChild(projectColorCircle);
-    cont.appendChild(editBtn);
-    cont.appendChild(deleteBtn);
+    cont.appendChild(d);
 
     return cont;
 }
