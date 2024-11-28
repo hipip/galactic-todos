@@ -1,31 +1,31 @@
 export default class Todo {
-    static id = 0;
+  static id = 0;
 
-    constructor(title, description, date) {
-        this.id = ++Todo.id;
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.isDone = false;
-    }
+  constructor(title, description, date, isDone = false) {
+    this.id = ++Todo.id;
+    this.title = title;
+    this.description = description;
+    this.date = date;
+    this.isDone = isDone;
+  }
 
-    setTitle(newTitle) {
-        this.title = newTitle;
-    }
+  setTitle(newTitle) {
+    this.title = newTitle;
+  }
 
-    setDescription(desc) {
-        this.description = desc;
-    }
+  setDescription(desc) {
+    this.description = desc;
+  }
 
-    setDate(date) {
-        this.date = date;
-    }
+  setDate(date) {
+    this.date = date;
+  }
 
-    markDone() {
-        this.isDone = true;
-    }
+  markDone() {
+    this.isDone = true;
+  }
 
-    markNotDone() {
-        this.isDone = false;
-    }
+  markNotDone() {
+    this.isDone = false;
+  }
 }

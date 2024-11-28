@@ -16,7 +16,12 @@ export default class LocalStorage {
         const newProject = new Project(prj.title, prj.color);
         for (const todo of prj.todos) {
           newProject.addTodo(
-            new Todo(todo.title, todo.description, new Date(todo.date))
+            new Todo(
+              todo.title,
+              todo.description,
+              new Date(todo.date),
+              todo.isDone
+            )
           );
         }
         projects.push(newProject);
