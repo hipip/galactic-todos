@@ -11,14 +11,16 @@ export default class LocalStorage {
     const projectsFromLocalStorage = JSON.parse(
       localStorage.getItem("projects")
     );
-    for (const prj of projectsFromLocalStorage) {
-      const newProject = new Project(prj.title, prj.color);
-      for (const todo of prj.todos) {
-        newProject.addTodo(
-          new Todo(todo.title, todo.description, new Date(todo.date))
-        );
+    try {
+      for (const prj of projectsFromLocalStorage) {
+        const newProject = new Project(prj.title, prj.color);
+        for (const todo of prj.todos) {
+          newProject.addTodo(
+            new Todo(todo.title, todo.description, new Date(todo.date))
+          );
+        }
+        projects.push(newProject);
       }
-      projects.push(newProject);
-    }
+    } catch (err) {}
   }
 }
