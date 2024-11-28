@@ -1,6 +1,7 @@
 # galactic-todos
 
 ### A simple yet beautiful todo list application, using localStorage API for persistency 
+#### [Live Link](https://hipip.github.io/galactic-todos)
 
 Todos
 
